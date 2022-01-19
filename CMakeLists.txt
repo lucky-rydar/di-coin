@@ -23,6 +23,7 @@ include_directories(${LIB}/spdlog/include)
 
 add_library(utils STATIC 
     ${UTILS}/crypto.cpp
+    ${UTILS}/time_utils.cpp
 )
 
 target_link_libraries(utils OpenSSL::SSL)
