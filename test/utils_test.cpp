@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include "spdlog/spdlog.h"
 
-#include "crypto.h"
+#include "utils/crypto.h"
 
 TEST(utils, sha256)
 {

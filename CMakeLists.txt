@@ -6,6 +6,8 @@ set(APP main)
 set(LIB lib)
 set(SRC src)
 
+set(UTILS src/utils)
+
 # packages
 
 find_package(OpenSSL REQUIRED)
@@ -20,7 +22,7 @@ include_directories(${SRC})
 include_directories(${LIB}/spdlog/include)
 
 add_library(utils STATIC 
-    ${SRC}/crypto.cpp
+    ${UTILS}/crypto.cpp
 )
 
 target_link_libraries(utils OpenSSL::SSL)
