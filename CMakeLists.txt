@@ -32,6 +32,7 @@ target_link_libraries(utils OpenSSL::SSL)
 ## core
 
 add_library(core STATIC
+    ${CORE}/miner.cpp
     ${CORE}/block.cpp
     ${CORE}/blockchain.cpp
 )
@@ -57,6 +58,7 @@ include_directories(
 add_executable(test 
     ${TEST_DIR}/g_test.cpp
     ${TEST_DIR}/utils_test.cpp
+    ${TEST_DIR}/miner_test.cpp
     ${TEST_DIR}/blockchain_test.cpp
 )
 

@@ -12,10 +12,12 @@ void block::operator=(const block& b) {
     data = b.data;
     timestamp = b.timestamp;
     hash = b.hash;
+    nonce = b.nonce;
 }
 
-void block::gen_hash() {
-    hash = crypto::sha256(prev_hash + data + timestamp);
+string block::gen_hash() {
+    hash = crypto::sha256(prev_hash + data + timestamp + to_string(nonce));
+    return hash;
 }
 
 void block::gen_timestamp() {
@@ -41,4 +43,8 @@ string block::get_timestamp() {
 
 string block::get_data() {
     return data;
+}
+
+void block::set_nonce(uint64_t nonce) {
+    this->nonce = nonce;
 }
