@@ -15,12 +15,16 @@ find_package(OpenSSL REQUIRED)
 
 add_subdirectory(${LIB}/googletest)
 add_subdirectory(${LIB}/spdlog)
+add_subdirectory(${LIB}/json)
+
+include_directories(${LIB}/spdlog/include)
+include_directories(${LIB}/json/include)
+include_directories(${LIB}/json/include/nlohmann)
 
 # binaries
 
 ## utils
 include_directories(${SRC})
-include_directories(${LIB}/spdlog/include)
 
 add_library(utils STATIC 
     ${UTILS}/crypto.cpp
@@ -59,10 +63,12 @@ add_executable(test
     ${TEST_DIR}/g_test.cpp
     ${TEST_DIR}/utils_test.cpp
     ${TEST_DIR}/miner_test.cpp
+    ${TEST_DIR}/jsonlib_test.cpp
     ${TEST_DIR}/blockchain_test.cpp
 )
 
 target_link_libraries(test 
+    nlohmann_json
     gtest_main 
     spdlog
     utils
