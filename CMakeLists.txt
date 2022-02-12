@@ -31,6 +31,8 @@ add_library(utils STATIC
     ${UTILS}/time_utils.cpp
 )
 
+target_compile_features(utils PUBLIC cxx_std_20)
+
 target_link_libraries(utils OpenSSL::SSL)
 
 ## core
@@ -41,11 +43,16 @@ add_library(core STATIC
     ${CORE}/blockchain.cpp
 )
 
+target_compile_features(core PUBLIC cxx_std_20)
+
 # main app
 
 add_executable(${APP} 
     ${SRC}/main.cpp
 )
+
+target_compile_features(${APP} PUBLIC cxx_std_20)
+
 target_link_libraries(${APP} 
     OpenSSL::SSL
     utils
@@ -61,6 +68,7 @@ include_directories(
 
 add_executable(test 
     ${TEST_DIR}/g_test.cpp
+    ${TEST_DIR}/block_test.cpp
     ${TEST_DIR}/utils_test.cpp
     ${TEST_DIR}/miner_test.cpp
     ${TEST_DIR}/jsonlib_test.cpp

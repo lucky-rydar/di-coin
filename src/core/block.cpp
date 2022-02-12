@@ -48,3 +48,14 @@ string block::get_data() {
 void block::set_nonce(uint64_t nonce) {
     this->nonce = nonce;
 }
+
+json block::jsonify() const {
+    json ret = {
+        {"timestamp", timestamp},
+        {"data", data},
+        {"prev_hash", prev_hash},
+        {"hash", hash},
+        {"nonce", nonce}
+    };
+    return ret;
+}

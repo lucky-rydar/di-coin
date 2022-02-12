@@ -2,6 +2,7 @@
 #include <chrono>
 
 #include <utils/crypto.h>
+#include <utils/jsonifier.h>
 #include <utils/time_utils.h>
 
 #include "blockchain.h"
@@ -11,6 +12,10 @@ namespace tu = time_utils;
 
 class block
 {
+    template <Jsonifiable T>
+    friend json jsonify(const T&);
+
+private:
     string timestamp;
     string data;
     string prev_hash;
@@ -18,9 +23,9 @@ class block
     uint64_t nonce;
 
     void gen_timestamp();
-
     void actualize();
 
+    json jsonify() const;
 public:
     block(string data, string prev_hash);
 
