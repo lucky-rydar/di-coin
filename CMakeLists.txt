@@ -16,10 +16,12 @@ find_package(OpenSSL REQUIRED)
 add_subdirectory(${LIB}/googletest)
 add_subdirectory(${LIB}/spdlog)
 add_subdirectory(${LIB}/json)
+add_subdirectory(${LIB}/libfort)
 
 include_directories(${LIB}/spdlog/include)
 include_directories(${LIB}/json/include)
 include_directories(${LIB}/json/include/nlohmann)
+include_directories(${LIB}/libfort/lib/)
 
 # binaries
 
@@ -71,6 +73,7 @@ add_executable(test
     ${TEST_DIR}/block_test.cpp
     ${TEST_DIR}/utils_test.cpp
     ${TEST_DIR}/miner_test.cpp
+    ${TEST_DIR}/libfort_test.cpp
     ${TEST_DIR}/jsonlib_test.cpp
     ${TEST_DIR}/blockchain_test.cpp
 )
@@ -81,4 +84,5 @@ target_link_libraries(test
     spdlog
     utils
     core
+    libfort::fort
 )
