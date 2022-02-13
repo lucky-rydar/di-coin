@@ -37,4 +37,5 @@ public:
     string get_timestamp();
     string get_data();
     void set_nonce(uint64_t nonce);
+    uint64_t get_nonce();
 };

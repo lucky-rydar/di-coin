@@ -49,6 +49,10 @@ void block::set_nonce(uint64_t nonce) {
     this->nonce = nonce;
 }
 
+uint64_t block::get_nonce() {
+    return nonce;
+}
+
 json block::jsonify() const {
     json ret = {
         {"timestamp", timestamp},
