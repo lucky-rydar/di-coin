@@ -4,8 +4,8 @@
 #include <utils/crypto.h>
 #include <utils/jsonifier.h>
 #include <utils/time_utils.h>
+#include <spdlog/spdlog.h>
 
-#include "blockchain.h"
 #include "miner.h"
 
 namespace tu = time_utils;

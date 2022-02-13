@@ -1,13 +1,19 @@
+#include <vector>
+
 #include "gtest/gtest.h"
 
 #include <core/miner.h>
 
 TEST(miner, simple_mine)
 {
-    string expected = "0000";
-    miner m("0000");
+    // should be used symbols from 0 to f
+    vector<string> expected = {"", "000", "123", "fff"};
+    miner m;
     block b("hello", "previous hash");
-    m.mine(b);
+    for(auto item : expected) {
+        m.set_condition(item);
+        m.mine(b);
 
-    ASSERT_EQ(b.gen_hash().substr(0, expected.length()), expected);
+        ASSERT_EQ(b.gen_hash().substr(0, item.length()), item);
+    }
 }

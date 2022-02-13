@@ -1,7 +1,8 @@
 #pragma once
 
 #include <utils/crypto.h>
-#include "block.h"
+
+#include <core/block.h>
 
 #include <vector>
 
@@ -17,6 +18,8 @@ private:
     const string genesis_str = "Genesis Block";
 
     vector<block> blocks;
+    string miner_condition = "0000";
+    miner miner_;
 
     void genesis();
 public:

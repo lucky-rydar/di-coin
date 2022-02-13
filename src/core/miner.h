@@ -10,10 +10,15 @@ class miner
 {
 private:
     // this string is expected at the beginning
-    string expected_string;
-    uint64_t difficulty;
+    string condition;
 public:
-    miner(string expected_string);
+    miner();
+    miner(string condition);
 
     void mine(block& b);
+
+    void set_condition(string condition);
+    string get_condition();
+    void increment_complexity();
+    void decrement_complexity();
 };

@@ -1,6 +1,7 @@
 #include "blockchain.h"
 
-blockchain::blockchain() {
+blockchain::blockchain()
+        : miner_(miner_condition) {
     genesis();
 }
 
