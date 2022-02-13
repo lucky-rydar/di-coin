@@ -6,13 +6,15 @@ blockchain::blockchain()
 }
 
 void blockchain::genesis() {
-    auto b = block(genesis_str, string(crypto::sha256_size, '0'));
+    auto b = block(genesis_str, "Mykhailo Didur");
+    b.set_nonce(18112003);
     blocks.push_back(b);
     spdlog::info("Genesis block generated");
 }
 
 void blockchain::add_block(string data) {
     auto b = block(data, blocks[blocks.size() - 1].get_hash());
+    miner_.mine(b);
     blocks.push_back(b);
     spdlog::info("block with hash ({}) is added", b.get_hash());
 }

@@ -8,7 +8,7 @@ TEST(blockchain, genesis)
     ASSERT_EQ(bc.size(), 1);
 
     auto block = bc.get_blocks()[0];
-    ASSERT_EQ(block.get_prev_hash(), string(64, '0'));
+    ASSERT_EQ(block.get_prev_hash(), string("Mykhailo Didur"));
 
     spdlog::info("{} {} {} {}", block.get_prev_hash(),
         block.get_data(), block.get_hash(), block.get_timestamp());

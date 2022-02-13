@@ -18,7 +18,7 @@ private:
     const string genesis_str = "Genesis Block";
 
     vector<block> blocks;
-    string miner_condition = "0000";
+    string miner_condition = "11";
     miner miner_;
 
     void genesis();
