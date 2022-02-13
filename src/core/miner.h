@@ -21,4 +21,10 @@ public:
     string get_condition();
     void increment_complexity();
     void decrement_complexity();
+
+    /**
+     * This function is needed to check if block was mined correctly to
+     * accept new blocks in blockchain later
+     */
+    bool is_correct(block& b);
 };

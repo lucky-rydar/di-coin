@@ -50,3 +50,14 @@ void miner::decrement_complexity() {
     if(condition.length() > 0 && condition.length() <= crypto::sha256_size)
         set_condition(string(condition.length() - 1, '0'));
 }
+
+bool miner::is_correct(block& b) {
+    bool right_hash = b.get_hash().length() == crypto::sha256_size;
+    bool right_prev_hash = b.get_prev_hash().length() == crypto::sha256_size;
+    bool hash_latest = b.get_hash() == b.gen_hash();
+
+    // TODO: maybe later get condition by date when it was mined
+    bool mined_correctly = b.get_hash().substr(0, condition.length()) == condition;
+
+    return right_hash && right_prev_hash && hash_latest && mined_correctly;
+}
