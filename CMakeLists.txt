@@ -43,6 +43,7 @@ add_library(core STATIC
     ${CORE}/miner.cpp
     ${CORE}/block.cpp
     ${CORE}/blockchain.cpp
+    ${CORE}/transaction.cpp
 )
 
 target_compile_features(core PUBLIC cxx_std_20)

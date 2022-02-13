@@ -10,6 +10,6 @@ concept Jsonifiable = requires(T t) {
 };
 
 template <Jsonifiable T>
-json jsonify(const T& obj) {
+json jsonify(T& obj) {
     return obj.jsonify();
 }

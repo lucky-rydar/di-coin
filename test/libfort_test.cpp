@@ -7,7 +7,7 @@ using namespace fort;
 
 TEST(libfort, libfort1)
 {
-    block b("Genesis block", string(64, '0'));
+    block b({"1", "2", 3}, string(64, '0'));
     miner m("0000");
     m.mine(b);
 

@@ -6,6 +6,7 @@
 #include <utils/time_utils.h>
 #include <spdlog/spdlog.h>
 
+#include "transaction.h"
 #include "miner.h"
 
 namespace tu = time_utils;
@@ -13,11 +14,11 @@ namespace tu = time_utils;
 class block
 {
     template <Jsonifiable T>
-    friend json jsonify(const T&);
+    friend json jsonify(T&);
 
 private:
     string timestamp;
-    string data;
+    transaction transaction_;
     string prev_hash;
     string hash;
     uint64_t nonce;
@@ -25,9 +26,9 @@ private:
     void gen_timestamp();
     void actualize();
 
-    json jsonify() const;
+    json jsonify();
 public:
-    block(string data, string prev_hash);
+    block(transaction transaction_, string prev_hash);
 
     void operator=(const block& b);
 

@@ -25,7 +25,7 @@ private:
 public:
     blockchain();
 
-    void add_block(string data);
+    void add_block(transaction t);
     size_t size();
     vector<block> get_blocks();
 };

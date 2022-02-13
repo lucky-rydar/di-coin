@@ -1,6 +1,10 @@
 #include "gtest/gtest.h"
 
 #include "core/blockchain.h"
+#include "core/transaction.h"
+#include <vector>
+
+using namespace std;
 
 TEST(blockchain, genesis)
 {
@@ -10,22 +14,27 @@ TEST(blockchain, genesis)
     auto block = bc.get_blocks()[0];
     ASSERT_EQ(block.get_prev_hash(), string(64, '0'));
 
-    spdlog::info("{} {} {} {}", block.get_prev_hash(),
-        block.get_data(), block.get_hash(), block.get_timestamp());
+    spdlog::info("{}", to_string(jsonify(block)));
 }
 
 TEST(blockchain, add_block)
 {
     blockchain bc;
 
-    bc.add_block("Hello world");
-    bc.add_block("send 1 BTC to user");
+    vector<transaction> transactions = {
+        {"1", "2", 123},
+        {"2", "1", 2}
+    };
+
+    for(auto transaction_ : transactions) {
+        bc.add_block(transaction_);
+    }
 
     ASSERT_EQ(bc.size(), 3);
 
     auto blocks = bc.get_blocks();
 
-    ASSERT_EQ(blocks[0].get_data(), "Genesis Block");
-    ASSERT_EQ(blocks[1].get_data(), "Hello world");
-    ASSERT_EQ(blocks[2].get_data(), "send 1 BTC to user");
+    for(int i = 0; i < transactions.size(); i++) {
+        ASSERT_EQ(blocks[i+1].get_data(), to_string(jsonify(transactions[i])));
+    }
 }
