@@ -13,6 +13,7 @@ void blockchain::genesis() {
 
 void blockchain::add_block(transaction t) {
     auto b = block(t, blocks[blocks.size() - 1].get_hash());
+    miner_.mine(b);
     blocks.push_back(b);
     spdlog::info("block with hash ({}) is added", b.get_hash());
 }
