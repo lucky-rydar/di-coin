@@ -6,12 +6,12 @@ blockchain::blockchain()
 }
 
 void blockchain::genesis() {
-    auto b = block({"God", "Misha", 20000000}, string(crypto::sha256_size, '0'));
+    auto b = block({"", "", 0}, string(crypto::sha256_size, '0'));
     blocks.push_back(b);
     spdlog::info("Genesis block generated");
 }
 
-void blockchain::add_block(transaction t) {
+void blockchain::add_transaction(transaction t) {
     auto b = block(t, blocks[blocks.size() - 1].get_hash());
     miner_.mine(b);
     blocks.push_back(b);

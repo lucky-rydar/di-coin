@@ -27,7 +27,7 @@ TEST(blockchain, add_block)
     };
 
     for(auto transaction_ : transactions) {
-        bc.add_block(transaction_);
+        bc.add_transaction(transaction_);
     }
 
     ASSERT_EQ(bc.size(), 3);
