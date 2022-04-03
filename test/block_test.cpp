@@ -7,7 +7,7 @@ TEST(block, block_jsonify)
 {
     string data = "hello";
     string prev_hash = "prev hash";
-    block b({"1", "2", 3}, prev_hash);
+    block b(transaction::create("1", "2", 3), prev_hash);
 
     auto jsoned = jsonify(b);
 

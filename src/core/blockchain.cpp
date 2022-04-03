@@ -6,7 +6,7 @@ blockchain::blockchain()
 }
 
 void blockchain::genesis() {
-    auto b = block({"", "", 0}, string(crypto::sha256_size, '0'));
+    auto b = block(transaction::create("", "", 0), string(crypto::sha256_size, '0'));
     blocks.push_back(b);
     spdlog::info("Genesis block generated");
 }

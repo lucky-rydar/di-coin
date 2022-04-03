@@ -77,6 +77,7 @@ add_executable(test
     ${TEST_DIR}/libfort_test.cpp
     ${TEST_DIR}/jsonlib_test.cpp
     ${TEST_DIR}/blockchain_test.cpp
+    ${TEST_DIR}/transaction_test.cpp
 )
 
 target_link_libraries(test 

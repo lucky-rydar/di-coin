@@ -17,6 +17,9 @@ private:
     json jsonify();
 
 public:
+    static transaction create(string from, string to, uint64_t amount);
+    static transaction coinbase(string to, uint64_t amount);
+
     string from;
     string to;
     uint64_t amount;
