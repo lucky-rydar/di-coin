@@ -52,6 +52,9 @@ target_compile_features(core PUBLIC cxx_std_20)
 
 add_executable(${APP} 
     ${SRC}/main.cpp
+    ${SRC}/cli/cli.cpp
+    ${SRC}/cli/handler/echo_cmd.cpp
+    ${SRC}/context/application.cpp
 )
 
 target_compile_features(${APP} PUBLIC cxx_std_20)
