@@ -21,10 +21,10 @@ private:
     string miner_condition = "0000";
     miner miner_;
 
-    void genesis();
 public:
     blockchain();
 
+    void genesis();
     void add_transaction(transaction t);
     size_t size();
     vector<block> get_blocks();

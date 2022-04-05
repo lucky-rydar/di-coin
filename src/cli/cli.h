@@ -8,6 +8,9 @@
 
 #include "handler/command_handler_base.h"
 #include "handler/echo_cmd.h"
+#include "handler/send_cmd.h"
+#include "handler/emit_cmd.h"
+#include "handler/balance_cmd.h"
 
 using namespace std;
 

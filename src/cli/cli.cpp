@@ -2,6 +2,9 @@
 
 cli::cli() {
     register_command_handler(make_unique<echo_cmd>());
+    register_command_handler(make_unique<send_cmd>());
+    register_command_handler(make_unique<emit_cmd>());
+    register_command_handler(make_unique<balance_cmd>());
 }
 
 void cli::register_command_handler(unique_ptr<command_handler_base> handler) {
@@ -31,7 +34,11 @@ void cli::run() {
 
         auto it = handlers.find(command);
         if (it != handlers.end()) {
-            it->second->handle(params);
+            try {
+                it->second->handle(params);
+            } catch (const exception& e) {
+                cout << it->second->help() << endl;
+            }
         } else {
             cout << "Unknown command: " << command << endl;
         }

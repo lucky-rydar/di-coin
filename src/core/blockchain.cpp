@@ -2,7 +2,6 @@
 
 blockchain::blockchain()
         : miner_(miner_condition) {
-    genesis();
 }
 
 void blockchain::genesis() {

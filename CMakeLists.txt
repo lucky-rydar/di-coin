@@ -55,6 +55,12 @@ add_executable(${APP}
     ${SRC}/cli/cli.cpp
     ${SRC}/cli/handler/echo_cmd.cpp
     ${SRC}/context/application.cpp
+    ${SRC}/core/block.cpp
+    ${SRC}/core/blockchain.cpp
+    ${SRC}/core/miner.cpp
+    ${SRC}/core/transaction.cpp
+    ${SRC}/utils/crypto.cpp
+    ${SRC}/utils/time_utils.cpp
 )
 
 target_compile_features(${APP} PUBLIC cxx_std_20)
