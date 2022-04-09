@@ -5,6 +5,7 @@ cli::cli() {
     register_command_handler(make_unique<send_cmd>());
     register_command_handler(make_unique<emit_cmd>());
     register_command_handler(make_unique<balance_cmd>());
+    register_command_handler(make_unique<blocks_cmd>());
 }
 
 void cli::register_command_handler(unique_ptr<command_handler_base> handler) {

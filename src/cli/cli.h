@@ -11,6 +11,7 @@
 #include "handler/send_cmd.h"
 #include "handler/emit_cmd.h"
 #include "handler/balance_cmd.h"
+#include "handler/blocks_cmd.h"
 
 using namespace std;
 

@@ -68,6 +68,7 @@ target_compile_features(${APP} PUBLIC cxx_std_20)
 target_link_libraries(${APP} 
     OpenSSL::SSL
     utils
+    libfort::fort
 )
 
 # tests
