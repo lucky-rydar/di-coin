@@ -9,6 +9,7 @@ using namespace std;
 TEST(blockchain, genesis)
 {
     blockchain bc;
+    bc.genesis();
     ASSERT_EQ(bc.size(), 1);
 
     auto block = bc.get_blocks()[0];
