@@ -16,7 +16,7 @@ class blocks_cmd : public command_handler_base
 {
 public:
     void handle(vector<string>& params) override {
-        auto app = application::instance();
+        auto& app = application::instance();
         auto blocks = app.get_blocks();
         for(auto& b : blocks) {
             char_table table;
