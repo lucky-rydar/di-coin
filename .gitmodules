@@ -10,3 +10,6 @@
 [submodule "lib/libfort"]
 	path = lib/libfort
 	url = git@github.com:seleznevae/libfort.git
+[submodule "lib/lrrp"]
+	path = lib/lrrp
+	url = git@github.com:lucky-rydar/lrrp.git

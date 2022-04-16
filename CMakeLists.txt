@@ -17,11 +17,15 @@ add_subdirectory(${LIB}/googletest)
 add_subdirectory(${LIB}/spdlog)
 add_subdirectory(${LIB}/json)
 add_subdirectory(${LIB}/libfort)
+add_subdirectory(${LIB}/lrrp)
 
-include_directories(${LIB}/spdlog/include)
-include_directories(${LIB}/json/include)
-include_directories(${LIB}/json/include/nlohmann)
-include_directories(${LIB}/libfort/lib/)
+include_directories(
+    ${LIB}/spdlog/include
+    ${LIB}/json/include
+    ${LIB}/json/include/nlohmann
+    ${LIB}/libfort/lib/
+    ${LIB}/lrrp/include
+)
 
 # binaries
 
@@ -61,6 +65,7 @@ add_executable(${APP}
     ${SRC}/core/transaction.cpp
     ${SRC}/utils/crypto.cpp
     ${SRC}/utils/time_utils.cpp
+    ${SRC}/server/get_server_info_handler.cpp
 )
 
 target_compile_features(${APP} PUBLIC cxx_std_20)
@@ -69,6 +74,7 @@ target_link_libraries(${APP}
     OpenSSL::SSL
     utils
     libfort::fort
+    lrrp
 )
 
 # tests

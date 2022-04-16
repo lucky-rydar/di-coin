@@ -6,6 +6,7 @@ cli::cli() {
     register_command_handler(make_unique<emit_cmd>());
     register_command_handler(make_unique<balance_cmd>());
     register_command_handler(make_unique<blocks_cmd>());
+    register_command_handler(make_unique<check_peer_cmd>());
 }
 
 void cli::register_command_handler(unique_ptr<command_handler_base> handler) {
@@ -21,6 +22,7 @@ void cli::run() {
         trim(input);
 
         if (input == "exit") {
+            application::instance().exit();
             break;
         }
 
@@ -37,7 +39,7 @@ void cli::run() {
         if (it != handlers.end()) {
             try {
                 it->second->handle(params);
-            } catch (const exception& e) {
+            } catch (const std::exception& e) {
                 cout << it->second->help() << endl;
             }
         } else {
