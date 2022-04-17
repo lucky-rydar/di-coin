@@ -21,14 +21,19 @@ TEST(blockchain, genesis)
 TEST(blockchain, add_block)
 {
     blockchain bc;
+    bc.genesis();
 
     vector<transaction> transactions = {
         {"1", "2", 123},
         {"2", "1", 2}
     };
 
+    miner m("000");
+
     for(auto transaction_ : transactions) {
-        bc.add_transaction(transaction_);
+        block b = block(transaction_, bc.get_blocks()[bc.size() - 1].get_hash());
+        m.mine(b);
+        bc.add_block(b);
     }
 
     ASSERT_EQ(bc.size(), 3);

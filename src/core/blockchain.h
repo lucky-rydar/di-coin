@@ -18,14 +18,12 @@ private:
     const string genesis_str = "Genesis Block";
 
     vector<block> blocks;
-    string miner_condition = "0000";
-    miner miner_;
 
 public:
     blockchain();
 
     void genesis();
-    void add_transaction(transaction t);
+    void add_block(block b);
     size_t size();
     vector<block> get_blocks();
 };

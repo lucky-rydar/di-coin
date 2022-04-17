@@ -9,6 +9,7 @@
 #include <lrrp.h>
 
 #include "core/blockchain.h"
+#include "core/mempool.h"
 #include "server/get_server_info_handler.h"
 
 using namespace std;
@@ -32,10 +33,14 @@ class application
 {
     accounts accounts_;
     blockchain blockchain_;
+    mempool mempool_;
 
     server_info server_info_;
     unique_ptr<lrrp::server> server_;
     unique_ptr<std::thread> server_thread_;
+
+    string miner_condition = "00000";
+    miner miner_;
 
     application();
 public:
@@ -58,7 +63,10 @@ public:
     int get_balance(string account);
     vector<block> get_blocks();
     server_info get_server_info();
+    void mine_block();
     void exit();
+
+    mempool& get_mempool();
 
     // this method should be called once in main
     void setup_server(int argc, char** argv);

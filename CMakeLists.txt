@@ -48,6 +48,11 @@ add_library(core STATIC
     ${CORE}/block.cpp
     ${CORE}/blockchain.cpp
     ${CORE}/transaction.cpp
+    ${SRC}/core/block.cpp
+    ${SRC}/core/blockchain.cpp
+    ${SRC}/core/miner.cpp
+    ${SRC}/core/transaction.cpp
+    ${SRC}/core/mempool.cpp
 )
 
 target_compile_features(core PUBLIC cxx_std_20)
@@ -59,10 +64,6 @@ add_executable(${APP}
     ${SRC}/cli/cli.cpp
     ${SRC}/cli/handler/echo_cmd.cpp
     ${SRC}/context/application.cpp
-    ${SRC}/core/block.cpp
-    ${SRC}/core/blockchain.cpp
-    ${SRC}/core/miner.cpp
-    ${SRC}/core/transaction.cpp
     ${SRC}/utils/crypto.cpp
     ${SRC}/utils/time_utils.cpp
     ${SRC}/server/get_server_info_handler.cpp
@@ -75,6 +76,7 @@ target_link_libraries(${APP}
     utils
     libfort::fort
     lrrp
+    core
 )
 
 # tests
@@ -94,6 +96,7 @@ add_executable(test
     ${TEST_DIR}/jsonlib_test.cpp
     ${TEST_DIR}/blockchain_test.cpp
     ${TEST_DIR}/transaction_test.cpp
+    ${TEST_DIR}/mempool_test.cpp
 )
 
 target_link_libraries(test 

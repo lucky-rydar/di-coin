@@ -24,3 +24,7 @@ transaction transaction::create(string from, string to, uint64_t amount) {
     ret.amount = amount;
     return ret;
 }
+
+string transaction::sha256(transaction t) {
+    return crypto::sha256(t.from + "_" + t.to + "_" + to_string(t.amount));
+}

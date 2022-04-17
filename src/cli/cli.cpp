@@ -7,6 +7,7 @@ cli::cli() {
     register_command_handler(make_unique<balance_cmd>());
     register_command_handler(make_unique<blocks_cmd>());
     register_command_handler(make_unique<check_peer_cmd>());
+    register_command_handler(make_unique<mine_cmd>());
 }
 
 void cli::register_command_handler(unique_ptr<command_handler_base> handler) {

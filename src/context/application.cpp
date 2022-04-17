@@ -1,6 +1,6 @@
 #include "application.h"
 
-application::application() {
+application::application() : miner_(miner_condition) {
     blockchain_.genesis();
 }
 
@@ -33,21 +33,8 @@ void application::add_transaction(string from, string to, int amount) {
         throw invalid_transaction_exception();
     }
 
-    if(accounts_.find(from) == accounts_.end()) {
-        accounts_[from] = 0;
-    }
-
-    if(accounts_.find(to) == accounts_.end()) {
-        accounts_[to] = 0;
-    }
-
-    if(accounts_[from] < amount) {
-        throw invalid_transaction_exception();
-    }
-
-    blockchain_.add_transaction(transaction::create(from, to, amount));
-    accounts_[from] -= amount;
-    accounts_[to] += amount;
+    transaction t = transaction::create(from, to, amount);
+    mempool_.push(t);
 }
 
 void application::emit_coins(string to, int amount) {
@@ -55,12 +42,8 @@ void application::emit_coins(string to, int amount) {
         throw invalid_transaction_exception();
     }
 
-    if(accounts_.find(to) == accounts_.end()) {
-        accounts_[to] = 0;
-    }
-
-    blockchain_.add_transaction(transaction::coinbase(to, amount));
-    accounts_[to] += amount;
+    transaction t = transaction::coinbase(to, amount);
+    mempool_.push(t);
 }
 
 int application::get_balance(string account) {
@@ -91,6 +74,35 @@ server_info application::get_peer_info(string ip, int port) {
     return info;
 }
 
+void application::mine_block() {
+    auto tx = mempool_.pop();
+
+    if(accounts_.find(tx.from) == accounts_.end()) {
+        accounts_[tx.from] = 0;
+    }
+
+    if(accounts_.find(tx.to) == accounts_.end()) {
+        accounts_[tx.to] = 0;
+    }
+
+    if(tx.amount > accounts_[tx.from] && tx.from != "") {
+        spdlog::error("Invalid transaction, account do not have enough money");
+        // maybe need to notify peers about that
+    } else {
+        block b(tx, blockchain_.get_blocks().back().get_hash());
+        miner_.mine(b);
+        blockchain_.add_block(b);
+
+        if(tx.from != "")
+            accounts_[tx.from] -= tx.amount;
+        accounts_[tx.to] += tx.amount;
+    }
+}
+
 void application::exit() {
     server_->stop();
+}
+
+mempool& application::get_mempool() {
+    return mempool_;
 }

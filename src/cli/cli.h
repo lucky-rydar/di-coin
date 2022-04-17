@@ -13,6 +13,7 @@
 #include "handler/balance_cmd.h"
 #include "handler/blocks_cmd.h"
 #include "handler/check_peer_cmd.h"
+#include "handler/mine_cmd.h"
 
 using namespace std;
 
