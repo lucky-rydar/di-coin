@@ -26,4 +26,9 @@ public:
     void add_block(block b);
     size_t size();
     vector<block> get_blocks();
+
+    block get_by_hash(string hash);
+    block get_by_prev_hash(string prev_hash);
+    block get_last_block();
+    block get_genesis_block();
 };

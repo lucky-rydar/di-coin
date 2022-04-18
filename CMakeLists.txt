@@ -57,6 +57,13 @@ add_library(core STATIC
 
 target_compile_features(core PUBLIC cxx_std_20)
 
+## config
+
+add_library(config STATIC
+    ${SRC}/config/config.cpp
+    ${SRC}/config/peer_list_loader.cpp
+)
+
 # main app
 
 add_executable(${APP} 
@@ -64,9 +71,11 @@ add_executable(${APP}
     ${SRC}/cli/cli.cpp
     ${SRC}/cli/handler/echo_cmd.cpp
     ${SRC}/context/application.cpp
-    ${SRC}/utils/crypto.cpp
-    ${SRC}/utils/time_utils.cpp
-    ${SRC}/server/get_server_info_handler.cpp
+    ${SRC}/net/get_server_info_handler.cpp
+    ${SRC}/net/add_peer_handler.cpp
+    ${SRC}/net/get_block_handler.cpp
+    ${SRC}/net/get_genesis_handler.cpp
+    ${SRC}/net/peer_client.cpp
 )
 
 target_compile_features(${APP} PUBLIC cxx_std_20)
@@ -77,6 +86,8 @@ target_link_libraries(${APP}
     libfort::fort
     lrrp
     core
+    config
+    utils
 )
 
 # tests
@@ -97,6 +108,7 @@ add_executable(test
     ${TEST_DIR}/blockchain_test.cpp
     ${TEST_DIR}/transaction_test.cpp
     ${TEST_DIR}/mempool_test.cpp
+    ${TEST_DIR}/config_test.cpp
 )
 
 target_link_libraries(test 
@@ -106,4 +118,5 @@ target_link_libraries(test
     utils
     core
     libfort::fort
+    config
 )

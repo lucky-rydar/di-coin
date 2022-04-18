@@ -45,6 +45,10 @@ string block::get_data() {
     return to_string(::jsonify(transaction_));
 }
 
+transaction block::get_transaction() {
+    return transaction_;
+}
+
 void block::set_nonce(uint64_t nonce) {
     this->nonce = nonce;
 }

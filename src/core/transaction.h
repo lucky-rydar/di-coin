@@ -22,6 +22,14 @@ public:
     static transaction coinbase(string to, uint64_t amount);
     static string sha256(transaction);
 
+    static transaction from_json(json j) {
+        transaction ret;
+        ret.from = j["from"];
+        ret.to = j["to"];
+        ret.amount = j["amount"];
+        return ret;
+    }
+
     string from;
     string to;
     uint64_t amount;
