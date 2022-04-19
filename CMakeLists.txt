@@ -76,6 +76,9 @@ add_executable(${APP}
     ${SRC}/net/get_block_handler.cpp
     ${SRC}/net/get_genesis_handler.cpp
     ${SRC}/net/peer_client.cpp
+    ${SRC}/net/add_block_handler.cpp
+    ${SRC}/net/add_transaction_handler.cpp
+    ${SRC}/net/peers_sender.cpp
 )
 
 target_compile_features(${APP} PUBLIC cxx_std_20)

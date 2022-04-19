@@ -11,12 +11,17 @@
 
 #include "core/blockchain.h"
 #include "core/mempool.h"
+#include "config/config.h"
+
+#include "net/peers_sender.h"
 #include "net/get_server_info_handler.h"
 #include "net/add_peer_handler.h"
 #include "net/get_block_handler.h"
 #include "net/get_genesis_handler.h"
 #include "net/peer_client.h"
-#include "config/config.h"
+#include "net/add_block_handler.h"
+#include "net/add_transaction_handler.h"
+
 
 using namespace std;
 
@@ -55,7 +60,6 @@ class application
     void notify_peers_about_me();
 
     void sync_with_network();
-    void proceed_block(block b, bool validate = true);
 public:
     /*
      * this mutex is needed to lock
@@ -84,11 +88,14 @@ public:
     blockchain& get_blockchain();
     config& get_config();
 
-    // this method should be called once in main
+    // this methods should be called once in main
     void setup_server(int argc, char** argv);
+    void setup_blockchain();
 
     // methods for network interaction
     server_info get_peer_info(string ip, int port);
     block get_block_by_prev_hash(string prev_hash);
     vector<peer> available_peers();
+
+    void proceed_block(block b, bool validate = true);
 };

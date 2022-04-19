@@ -46,3 +46,12 @@ block blockchain::get_last_block() {
 block blockchain::get_genesis_block() {
     return blocks.front();
 }
+
+bool blockchain::has_block(string hash) {
+    for(auto& b : blocks) {
+        if(b.get_hash() == hash) {
+            return true;
+        }
+    }
+    return false;
+}

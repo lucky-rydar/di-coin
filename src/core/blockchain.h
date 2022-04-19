@@ -31,4 +31,6 @@ public:
     block get_by_prev_hash(string prev_hash);
     block get_last_block();
     block get_genesis_block();
+
+    bool has_block(string hash);
 };

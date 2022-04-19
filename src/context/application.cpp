@@ -2,15 +2,14 @@
 
 application::application() : miner_(miner_condition) {
     config_.load();
+}
 
-    // here we check if network exists
+void application::setup_blockchain() {
     if(available_peers().size() > 0) {
         notify_peers_about_me();
         spdlog::info("Notified peers about me");
-        // here we should sync with netwok
         sync_with_network();
     } else {
-        // here init our own blockchain
         blockchain_.genesis();
     }
 }
@@ -19,8 +18,8 @@ void application::notify_peers_about_me() {
     for(auto& peer : available_peers()) {
         lrrp::client client_(peer.ip, peer.port);
         lrrp::request req = lrrp::request_builder("add_peer")
-                .set_param("ip", peer.ip)
-                .set_param("port", peer.port)
+                .set_param("ip", server_info_.ip)
+                .set_param("port", server_info_.port)
                 .build();
 
         client_.send(req);
@@ -82,6 +81,7 @@ void application::setup_server(int argc, char** argv) {
     server_->add_handler("add_peer", make_unique<add_peer_handler>());
     server_->add_handler("get_block", make_unique<get_block_handler>());
     server_->add_handler("get_genesis", make_unique<get_genesis_handler>());
+    server_->add_handler("add_block", make_unique<add_block_handler>());
 
     server_thread_ = std::make_unique<std::thread>([this]() {
         try {
@@ -134,8 +134,12 @@ server_info application::get_peer_info(string ip, int port) {
     lrrp::response res = c.send(req);
 
     server_info info{"", -1};
-    info.ip = res.get_payload()["ip"];
-    info.port = res.get_payload()["port"];
+    try {
+        info.ip = res.get_payload()["ip"];
+        info.port = res.get_payload()["port"];
+    } catch(const std::exception& e) {
+        // it's ok
+    }
 
     return info;
 }
@@ -153,11 +157,12 @@ void application::mine_block() {
 
     if(tx.amount > accounts_[tx.from] && tx.from != "") {
         spdlog::error("Invalid transaction, account do not have enough money");
-        // maybe need to notify peers about that
     } else {
-        block b(tx, blockchain_.get_blocks().back().get_hash());
+        block b(tx, blockchain_.get_last_block().get_hash());
         miner_.mine(b);
         blockchain_.add_block(b);
+
+        peers_sender(available_peers()).add_block(b);
 
         if(tx.from != "")
             accounts_[tx.from] -= tx.amount;
