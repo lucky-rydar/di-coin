@@ -27,6 +27,10 @@ void cli::run() {
             break;
         }
 
+        if (input.empty()) {
+            continue;
+        }
+
         vector<string> params;
         string command;
         stringstream ss(input);
