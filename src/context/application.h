@@ -57,6 +57,7 @@ class application
     application();
 
     // method is needed to notify about myself
+    void notify_peer_about_me(peer p);
     void notify_peers_about_me();
 
     void sync_with_network();
@@ -81,7 +82,8 @@ public:
     vector<block> get_blocks();
     server_info get_server_info();
     void mine_block();
-    void add_peer(peer p);
+    bool add_peer_server_handler(peer p);
+    bool add_peer_command_handler(peer p);
     void exit();
 
     mempool& get_mempool();

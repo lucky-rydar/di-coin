@@ -14,15 +14,19 @@ void application::setup_blockchain() {
     }
 }
 
+void application::notify_peer_about_me(peer p) {
+    lrrp::client client_(p.ip, p.port);
+    lrrp::request req = lrrp::request_builder("add_peer")
+            .set_param("ip", server_info_.ip)
+            .set_param("port", server_info_.port)
+            .build();
+
+    client_.send(req);
+}
+
 void application::notify_peers_about_me() {
     for(auto& peer : available_peers()) {
-        lrrp::client client_(peer.ip, peer.port);
-        lrrp::request req = lrrp::request_builder("add_peer")
-                .set_param("ip", server_info_.ip)
-                .set_param("port", server_info_.port)
-                .build();
-
-        client_.send(req);
+        notify_peer_about_me(peer);
     }
 }
 
@@ -178,13 +182,28 @@ mempool& application::get_mempool() {
     return mempool_;
 }
 
-void application::add_peer(peer p) {
+bool application::add_peer_server_handler(peer p) {
     auto res = get_peer_info(p.ip, p.port);
     if(res.port == -1) {
-        return;
+        // peer is not reached
+        return false;
     }
 
     config_.get_peers().push_back(p);
+    return true;
+}
+
+bool application::add_peer_command_handler(peer p) {
+    auto res = get_peer_info(p.ip, p.port);
+    if(res.port == -1) {
+        // peer is not reached
+        return false;
+    }
+
+    notify_peer_about_me(p);
+
+    config_.get_peers().push_back(p);
+    return true;
 }
 
 vector<peer> application::available_peers() {

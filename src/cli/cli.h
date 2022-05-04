@@ -14,6 +14,9 @@
 #include "handler/blocks_cmd.h"
 #include "handler/check_peer_cmd.h"
 #include "handler/mine_cmd.h"
+#include "handler/add_peer_cmd.h"
+#include "handler/peers_cmd.h"
+#include "handler/clear_peers_cmd.h"
 
 using namespace std;
 

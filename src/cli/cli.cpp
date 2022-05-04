@@ -8,6 +8,11 @@ cli::cli() {
     register_command_handler(make_unique<blocks_cmd>());
     register_command_handler(make_unique<check_peer_cmd>());
     register_command_handler(make_unique<mine_cmd>());
+
+    // peer commands
+    register_command_handler(make_unique<add_peer_cmd>());
+    register_command_handler(make_unique<peers_cmd>());
+    register_command_handler(make_unique<clear_peers_cmd>());
 }
 
 void cli::register_command_handler(unique_ptr<command_handler_base> handler) {
