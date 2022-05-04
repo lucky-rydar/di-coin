@@ -22,6 +22,7 @@ public:
             char_table table;
             table << fort::header
                 << "" << "Block" << fort::endr
+                << "index" << b.get_index() << fort::endr
                 << "timestamp" << b.get_timestamp() << fort::endr
                 << "data" << b.get_data() << fort::endr
                 << "hash" << b.get_hash() << fort::endr

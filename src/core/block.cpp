@@ -53,13 +53,22 @@ void block::set_nonce(uint64_t nonce) {
     this->nonce = nonce;
 }
 
+int block::get_index() {
+    return index;
+}
+
+void block::set_index(int index) {
+    this->index = index;
+}
+
 json block::jsonify() {
     json ret = {
         {"timestamp", timestamp},
         {"transaction", ::jsonify(transaction_)},
         {"prev_hash", prev_hash},
         {"hash", hash},
-        {"nonce", nonce}
+        {"nonce", nonce},
+        {"index", index}
     };
     return ret;
 }

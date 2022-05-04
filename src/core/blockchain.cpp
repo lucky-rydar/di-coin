@@ -4,11 +4,13 @@ blockchain::blockchain() { }
 
 void blockchain::genesis() {
     auto b = block(transaction::create("", "", 0), string(crypto::sha256_size, '0'));
+    b.set_index(0);
     blocks.push_back(b);
     spdlog::info("Genesis block generated");
 }
 
 void blockchain::add_block(block b) {
+    b.set_index(blocks.size());
     blocks.push_back(b);
     spdlog::info("block with hash ({}) is added", b.get_hash());
 }

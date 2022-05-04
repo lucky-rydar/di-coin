@@ -17,6 +17,7 @@ class block
     friend json jsonify(T&);
 
 private:
+    int index = -1;
     string timestamp;
     transaction transaction_;
     string prev_hash;
@@ -40,6 +41,8 @@ public:
     string get_data();
     transaction get_transaction();
     void set_nonce(uint64_t nonce);
+    int get_index();
+    void set_index(int index);
 
     static block from_json(json j) {
         block ret;
@@ -48,6 +51,7 @@ public:
         ret.prev_hash = j["prev_hash"];
         ret.hash = j["hash"];
         ret.nonce = j["nonce"];
+        ret.index = j["index"];
         return ret;
     }
 };
