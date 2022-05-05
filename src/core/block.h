@@ -17,7 +17,7 @@ class block
     friend json jsonify(T&);
 
 private:
-    int index = -1;
+    int index = -2;
     string timestamp;
     transaction transaction_;
     string prev_hash;

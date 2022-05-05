@@ -48,18 +48,25 @@ void application::sync_with_network() {
 }
 
 void application::proceed_block(block b, bool validate) {
-    auto t = b.get_transaction();
+    if(b.get_index() == blockchain_.size()) {
+        // we should apply block if index is equal to blockchain size
+        auto t = b.get_transaction();
 
-    if(validate) {
-        if(t.amount > accounts_[t.from] || t.amount < 0) {
-            throw invalid_transaction_exception();
+        if(validate) {
+            if(t.amount > accounts_[t.from] || t.amount < 0) {
+                throw invalid_transaction_exception();
+            }
         }
+
+        accounts_[t.from] -= t.amount;
+        accounts_[t.to] += t.amount;
+
+        blockchain_.add_block(b);
+    } else {
+        // or resync with network
+        blockchain_.clear();
+        sync_with_network();
     }
-
-    accounts_[t.from] -= t.amount;
-    accounts_[t.to] += t.amount;
-
-    blockchain_.add_block(b);
 }
 
 blockchain& application::get_blockchain() {
@@ -166,7 +173,8 @@ void application::mine_block() {
         miner_.mine(b);
         blockchain_.add_block(b);
 
-        peers_sender(available_peers()).add_block(b);
+        // get last block from chain because it is indexed
+        peers_sender(available_peers()).add_block(blockchain_.get_last_block());
 
         if(tx.from != "")
             accounts_[tx.from] -= tx.amount;

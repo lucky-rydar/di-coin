@@ -57,3 +57,7 @@ bool blockchain::has_block(string hash) {
     }
     return false;
 }
+
+void blockchain::clear() {
+    blocks.clear();
+}

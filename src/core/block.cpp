@@ -13,6 +13,7 @@ void block::operator=(const block& b) {
     timestamp = b.timestamp;
     hash = b.hash;
     nonce = b.nonce;
+    index = b.index;
 }
 
 string block::gen_hash() {
