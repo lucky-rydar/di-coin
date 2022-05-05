@@ -62,7 +62,7 @@ void application::proceed_block(block b, bool validate) {
         accounts_[t.to] += t.amount;
 
         blockchain_.add_block(b);
-    } else {
+    } else if(b.get_index() > blockchain_.size()) {
         // or resync with network
         blockchain_.clear();
         sync_with_network();
